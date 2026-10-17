@@ -1,7 +1,9 @@
-import random
 import sys
 
 import pygame
+
+from button import Button
+from serpinski_triangle import Serpinski
 
 pygame.init()
 WIDTH, HEIGHT = 800, 600
@@ -15,18 +17,24 @@ clock = pygame.time.Clock()
 triangle = [[200, 10], [10, 390], [390, 390]]
 
 
-def chaos_game(pos):
-    x, y = [200, 200]
-    i = 0
-    while i < 1000000:
-        cx, cy = random.choice(pos)
-        x = (x + cx) / 2
-        y = (y + cy) / 2
-        i += 1
-        pygame.draw.circle(window, WHITE, (x, y), 1)
+serpinski_triangle_image = pygame.image.load(
+    "assets/Sierpinski_triangle.png"
+).convert_alpha()
+serpinski_triangle_button = Button(
+    window,
+    WIDTH // 2,
+    HEIGHT // 2,
+    serpinski_triangle_image,
+    serpinski_triangle_image.get_width(),
+    serpinski_triangle_image.get_height(),
+)
+
+running = False
+serpinski = Serpinski(window, 200, 200, triangle, 5000)
 
 
 def main():
+    global running
     while True:
         clock.tick(60)
 
@@ -34,8 +42,19 @@ def main():
             if event.type == pygame.QUIT:
                 sys.exit()
                 pygame.quit()
-        window.fill(BLACK)
-        chaos_game(triangle)
+        if not running:
+            window.fill(BLACK)
+        else:
+            None
+        if not running:
+            if serpinski_triangle_button.draw():
+                serpinski.reset(200, 200)
+                running = True
+        else:
+            serpinski.chaos_game(WHITE, triangle)
+            if serpinski.points >= serpinski.max_points:
+                running = False
+
         pygame.display.update()
 
 
