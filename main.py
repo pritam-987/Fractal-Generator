@@ -3,6 +3,7 @@ import sys
 import pygame
 
 from button import Button
+from malbrode_set import MalbrodeSet
 from serpinski_triangle import Serpinski
 
 pygame.init()
@@ -13,8 +14,6 @@ WHITE = (255, 255, 255)
 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
-
-triangle = [[200, 10], [10, 390], [390, 390]]
 
 
 serpinski_triangle_image = pygame.image.load(
@@ -29,8 +28,12 @@ serpinski_triangle_button = Button(
     serpinski_triangle_image.get_height(),
 )
 
+triangle = [[200, 10], [10, 390], [390, 390]]
+serpinski = Serpinski(window, 200, 200, 500000)
+
+malbrode_set = MalbrodeSet(window, WIDTH, HEIGHT)
+
 running = False
-serpinski = Serpinski(window, 200, 200, triangle, 5000)
 
 
 def main():
@@ -42,18 +45,15 @@ def main():
             if event.type == pygame.QUIT:
                 sys.exit()
                 pygame.quit()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    x, y = event.pos
+                    malbrode_set.zoom(x, y)
         if not running:
             window.fill(BLACK)
+            malbrode_set.mandlebrot(0, 0)
         else:
             None
-        if not running:
-            if serpinski_triangle_button.draw():
-                serpinski.reset(200, 200)
-                running = True
-        else:
-            serpinski.chaos_game(WHITE, triangle)
-            if serpinski.points >= serpinski.max_points:
-                running = False
 
         pygame.display.update()
 
