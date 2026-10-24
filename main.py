@@ -40,18 +40,17 @@ def main():
     global running
     while True:
         clock.tick(60)
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                sys.exit()
                 pygame.quit()
+                sys.exit()
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     x, y = event.pos
                     malbrode_set.zoom(x, y)
         if not running:
             window.fill(BLACK)
-            malbrode_set.mandlebrot(0, 0)
+            malbrode_set.mandlebrot()
         else:
             None
 
