@@ -47,3 +47,4 @@ class MalbrodeSet:
         self.center_x += (mouse_x - self.width / 2) / scale
         self.center_y += (mouse_y - self.height / 2) / scale
         self.zoom_level *= 2
+        self.mandlebrot()

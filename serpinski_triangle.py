@@ -9,10 +9,10 @@ class Serpinski:
         self.x = x
         self.y = y
         self.depth = depth
-
-    def chaos_game(self, color, pos):
         self.points = 0
         self.max_points = 10**6
+
+    def chaos_game(self, color, pos):
 
         for _ in range(self.depth):
             if self.points >= self.max_points:
