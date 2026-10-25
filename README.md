@@ -4,7 +4,7 @@ A simple Serpinski Triangle and Mandlebrot Set generator in Python and Pygame.
 
 ## Description
 
-This is a simple interactive application in Pyhton to see some fractals. The project currently features Serpinski Triangle and Mandlebrot Set.
+This is a simple interactive application in Pyhton to see some fractals. The project currently features Serpinski Triangle and Mandlebrot Set.Use left click to zoom the set.
 - some resources used -
 1.[chaos game](https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle#Chaos_game)
 2.[3Blue1Browns vid](https://www.youtube.com/watch?v=gB9n2gHsHN4&t=152s)
