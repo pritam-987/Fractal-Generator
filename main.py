@@ -21,6 +21,12 @@ serpinski_triangle_image = pygame.image.load(
 ).convert_alpha()
 mandlebrot_set_image = pygame.image.load("assets/Sprite-0004.png").convert_alpha()
 
+# load font
+font = pygame.font.SysFont(pygame.font.get_default_font(), 50)
+# render text
+text = font.render("Press Escape to reset", True, WHITE)
+text_rect = text.get_rect()
+
 # load buttons
 serpinski_triangle_button = Button(
     window,
@@ -44,7 +50,7 @@ serpinski = Serpinski(window, 200, 200, 500000)
 
 malbrode_set = MalbrodeSet(window, WIDTH, HEIGHT)
 
-game_state = None
+game_state = None  # None: Menu
 
 
 def main():
@@ -62,9 +68,14 @@ def main():
                     x, y = event.pos
                     malbrode_set.zoom(x, y)
                     print(event.pos)
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    game_state = None  # Return to menu
             # malbrode_set.mandlebrot()
         if game_state is None:
             window.fill(BLACK)
+            # draw the text
+            window.blit(text)
 
             if serpinski_triangle_button.draw():
                 window.fill(BLACK)
